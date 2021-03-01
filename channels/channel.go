@@ -7,7 +7,9 @@ import (
 
 func main() {
 	go count("sheep")
-	count("fish")
+	go count("fish")
+	// when using fmtScanln it blocks to finishing execution
+	fmt.Scanln()
 }
 
 func count(thing string) {
