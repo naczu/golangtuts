@@ -25,6 +25,8 @@ func main() {
 	}()
 
 	for {
+		// We have solved the step13 problem here with select.
+		// select applies the execution when the value received
 		select {
 		case msg1 := <-ch1:
 			fmt.Println(msg1)
