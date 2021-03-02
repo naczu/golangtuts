@@ -15,6 +15,6 @@ func main() {
 }
 
 func anotherRoutine(ch chan string) {
-	time.Sleep(time.Second * 1)
 	ch <- "hello"
+	time.Sleep(time.Second * 10) // this will never fire because sending value to channel will block the execution
 }
