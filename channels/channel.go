@@ -2,17 +2,30 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func main() {
-	// When we use size parameter for chan type this will create new goroutines.
-	ch := make(chan string, 2)
+	// we create two channels and send strings to values in goroutine
+	ch1 := make(chan string)
+	ch2 := make(chan string)
 
-	ch <- "hello" // This will not block the execution because we gave 2 gourutines in make for chan type
-	ch <- "world"
+	go func() {
+		for {
+			ch1 <- "every 500ms"
+			time.Sleep(time.Millisecond * 500)
+		}
+	}()
 
-	msg := <-ch
-	fmt.Println(msg)
-	msg = <-ch
-	fmt.Println(msg)
+	go func() {
+		for {
+			ch2 <- "every 2 second"
+			time.Sleep(time.Second * 2)
+		}
+	}()
+
+	for {
+		fmt.Println(<-ch1)
+		fmt.Println(<-ch2)
+	}
 }
