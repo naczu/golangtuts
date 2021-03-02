@@ -10,13 +10,8 @@ func main() {
 
 	go count("sheep", ch)
 
-	//
-	for {
-		// When we close channel we can get second parameter as channel is opened or closed
-		msg, open := <-ch
-		if !open {
-			break
-		}
+	// we also can use ch in range so when channel is closed the for loop will be finished in runtime.
+	for msg := range ch {
 		fmt.Println(msg)
 	}
 
