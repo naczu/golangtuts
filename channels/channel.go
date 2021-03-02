@@ -10,10 +10,13 @@ func main() {
 
 	go count("sheep", ch)
 
-	// we stopped the execution with limit our for loop
-	// so we will not get deadlock error
-	for i := 1; i <= 5; i++ {
-		msg := <-ch
+	//
+	for {
+		// When we close channel we can get second parameter as channel is opened or closed
+		msg, open := <-ch
+		if !open {
+			break
+		}
 		fmt.Println(msg)
 	}
 
@@ -25,4 +28,6 @@ func count(thing string, c chan string) {
 		c <- thing
 		time.Sleep(time.Millisecond * 500)
 	}
+	// We use close
+	close(c)
 }
