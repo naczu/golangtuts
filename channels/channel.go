@@ -8,7 +8,7 @@ import (
 func main() {
 	go count("sheep")
 	go count("fish")
-	// when using fmtScanln it blocks to finishing execution untill you press enter
+	// when using fmtScanln it blocks finishing execution untill you press enter
 	fmt.Scanln()
 }
 
