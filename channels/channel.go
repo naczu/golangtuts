@@ -1,26 +1,15 @@
 package main
 
-import (
-	"fmt"
-	"time"
-)
+import "fmt"
 
 func main() {
 	ch := make(chan string)
-
-	go count("sheep", ch)
-
-	// channel receiving and sending blocks the execution
+	// Here we blocked the execution in same goroutine. So this will not work.
+	// We cannot send value to channels in same goroutine.
+	fmt.Println("Now execution will be blocked")
+	ch <- "hello"
+	fmt.Println("This will never fire")
 	msg := <-ch
-
 	fmt.Println(msg)
 
-}
-
-func count(thing string, c chan string) {
-	for i := 1; i <= 5; i++ {
-		// channel receiving and sending blocks the execution
-		c <- thing
-		time.Sleep(time.Millisecond * 500)
-	}
 }
