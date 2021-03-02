@@ -2,23 +2,25 @@ package main
 
 import (
 	"fmt"
-	"sync"
 	"time"
 )
 
 func main() {
-	var wg sync.WaitGroup
-	wg.Add(1)
-	go func() {
-		count("sheep")
-		wg.Done()
-	}()
-	wg.Wait()
+	ch := make(chan string)
+
+	go count("sheep", ch)
+
+	// channel receiving and sending blocks the execution
+	msg := <-ch
+
+	fmt.Println(msg)
+
 }
 
-func count(thing string) {
+func count(thing string, c chan string) {
 	for i := 1; i <= 5; i++ {
-		fmt.Println(i, thing)
+		// channel receiving and sending blocks the execution
+		c <- thing
 		time.Sleep(time.Millisecond * 500)
 	}
 }
