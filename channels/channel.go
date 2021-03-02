@@ -10,10 +10,9 @@ func main() {
 
 	go count("sheep", ch)
 
-	// we wrapped with for to receive all sended items to channels.
-	// But this will give an error which is "fatal error: all goroutines are asleep - deadlock!"
-	// because msq will still wait for new values from ch because of infinitive for
-	for {
+	// we stopped the execution with limit our for loop
+	// so we will not get deadlock error
+	for i := 1; i <= 5; i++ {
 		msg := <-ch
 		fmt.Println(msg)
 	}
