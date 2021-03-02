@@ -7,7 +7,7 @@ func main() {
 	// Here we blocked the execution in same goroutine. So this will not work.
 	// We cannot send value to channels in same goroutine.
 	fmt.Println("Now execution will be blocked")
-	ch <- "hello"
+	ch <- "hello" // this blocks the execution
 	fmt.Println("This will never fire")
 	msg := <-ch
 	fmt.Println(msg)
