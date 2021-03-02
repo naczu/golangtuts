@@ -25,7 +25,11 @@ func main() {
 	}()
 
 	for {
-		fmt.Println(<-ch1) // we are waiting for slow one
-		fmt.Println(<-ch2) // this is blocking the queue for 2 seconds. We need to solve this with select
+		select {
+		case msg1 := <-ch1:
+			fmt.Println(msg1)
+		case msg2 := <-ch2:
+			fmt.Println(msg2)
+		}
 	}
 }
