@@ -9,10 +9,10 @@ func main() {
 	ch := make(chan string, 2)
 
 	ch <- "hello" // This will not block the execution because we gave 2 gourutines in make for chan type
+	ch <- "world"
+
 	msg := <-ch
 	fmt.Println(msg)
-
-	ch <- "world"
 	msg = <-ch
 	fmt.Println(msg)
 }
